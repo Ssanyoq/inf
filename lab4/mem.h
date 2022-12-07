@@ -3,4 +3,6 @@
 
 char *safe_malloc(int len);
 
+char *safe_realloc(char *str, int len);
+
 #endif

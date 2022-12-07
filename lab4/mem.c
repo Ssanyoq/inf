@@ -10,3 +10,13 @@ char *safe_malloc(int len) {
     }
     return str;
 }
+
+char *safe_realloc(char *str, int len) {
+    str = (char *)realloc(str, len * sizeof(char));
+    if (!str) {
+        printf("Error occured while allocating memory\n");
+        return NULL;
+    }
+    return str;
+}
+  
