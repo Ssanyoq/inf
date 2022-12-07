@@ -12,7 +12,7 @@ char *input_s() {
 }
 
 int is_vowel(char c) {
-    for (int i = 0; i < 6; i++) { // 6 - vowels amt
+    for (int i = 0; i < 12; i++) { // 6 - vowels amt
         if (c == vowels[i]) {
             return 1;
         }
@@ -30,7 +30,7 @@ void print_string(char *str, char c){
 char *process(char* str) {
     int len = strlen(str);
     int new_len = 0;
-    char* new_str = safe_malloc(len * 2);
+    char* new_str = safe_malloc(len * 2 + 1);
     for (int i = 0; i < len; i++) {
         if (is_vowel(str[i])) {
             new_str[new_len] = str[i];
@@ -39,6 +39,8 @@ char *process(char* str) {
         new_str[new_len] = str[i];
         new_len++;
     }
+    new_str[new_len] = '\0';
+    new_str = safe_realloc(new_str, new_len + 1);
     return new_str;
 }
 
