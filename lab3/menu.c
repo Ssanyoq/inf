@@ -7,7 +7,7 @@
 #include "printables.h"
 
 
-int insert_item_prints(int **arr, int *len, int bytes_size) {
+int insert_item_prints(int *arr, int *len, int bytes_size) {
     // if ((*len + 1) * sizeof(int) > bytes_size) {
     //     need_more_memory();
     //     return 2;
@@ -27,7 +27,7 @@ int insert_item_prints(int **arr, int *len, int bytes_size) {
     return out;
 }
 
-int delete_item_prints(int **arr, int *len) {
+int delete_item_prints(int *arr, int *len) {
     if (*len == 0) {
         arr_not_initialized();
         return 0;
@@ -94,14 +94,14 @@ void print_arr(int *arr, unsigned int len, int bytes_size, short enter) {
     }
 }
 
-int process_prints(int **arr, int *len) {
+int process_prints(int *arr, int *len) {
     if (*len == 0) {
         arr_not_initialized();
         return 0;
     }
     int *arr_to_delete = safe_malloc(*len);
     int arrtd_len = 0;
-    int out = process(arr, len, &arr_to_delete, &arrtd_len);
+    int out = process(arr, len, arr_to_delete, &arrtd_len);
     if (out == 1) { 
         arr_not_initialized();
         return 2;
@@ -111,7 +111,7 @@ int process_prints(int **arr, int *len) {
     printf("Sequence to be deleted: ");
     print_arr(arr_to_delete, arrtd_len, -1, 1);
     printf("\nNew array: ");
-    print_arr(*arr, *len, -1, 1);
+    print_arr(arr, *len, -1, 1);
     free(arr_to_delete);
     system("clear");
     printf("Array was processed successfuly\n");
@@ -164,14 +164,14 @@ int menu() {
                 break;
             case 2:
                 // insert
-                out = insert_item_prints(&arr, len, bytes_size);
+                out = insert_item_prints(arr, len, bytes_size);
                 break;
             case 3:
                 // delete
-                out = delete_item_prints(&arr, len);
+                out = delete_item_prints(arr, len);
                 break;
             case 4:
-                out = process_prints(&arr, len);
+                out = process_prints(arr, len);
                 // process
                 break;
             case 5:
