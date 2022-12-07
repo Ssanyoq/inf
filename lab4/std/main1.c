@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <stdlib.h>
+#include <time.h>
 #include "../mem.h"
 
 const char vowels[12] = {'a','e','i','o','u','y',
@@ -47,10 +48,13 @@ int main() {
     while (str != NULL) {
         printf("Current string: ");
         print_string(str, '"');
+        clock_t start = clock();
         char *new_str = process(str);
+        clock_t end = clock();
         printf("\nNew string: ");
         print_string(new_str, '"');
         printf("\n");
+        printf("Processed in %lf s.\n", (double)(end - start) / CLOCKS_PER_SEC);
         free(str);
         free(new_str);
         str = readline("Input string: ");
