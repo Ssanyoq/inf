@@ -4,12 +4,9 @@
 #include <stdlib.h>
 #include "../mem.h"
 
-const char vowels[12] = {'a','e','i','o','u','y', 'A', 'E', 'I', 'O','U','Y'};
+const char vowels[12] = {'a','e','i','o','u','y',
+ 'A', 'E', 'I', 'O','U','Y'};
 
-char *input_s() {
-    char* inp = readline("");
-    return inp;
-}
 
 int is_vowel(char c) {
     for (int i = 0; i < 12; i++) { // 6 - vowels amt
@@ -46,14 +43,18 @@ char *process(char* str) {
 
 int main() {
     char *str;
-    str = input_s();
-    printf("Current string: ");
-    print_string(str, '"');
-    char *new_str = process(str);
-    printf("\nNew string: ");
-    print_string(new_str, '"');
-    printf("\n");
-    free(str);
-    free(new_str);
+    str = readline("Input string: ");
+    while (str != NULL) {
+        printf("Current string: ");
+        print_string(str, '"');
+        char *new_str = process(str);
+        printf("\nNew string: ");
+        print_string(new_str, '"');
+        printf("\n");
+        free(str);
+        free(new_str);
+        str = readline("Input string: ");
+
+    }
     return 0;
 }
