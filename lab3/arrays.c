@@ -30,20 +30,14 @@ int process(int *arr, int *len, int *arr_to_delete, int *arrtd_len) {
     if (*len == 0) {
         return 1;
     }
-    int *new_arr = safe_malloc(*len);
-    int new_len = 0;
     for (int i = 0; i < *len; i++) {
         if (is_good_num(arr[i])) {
             arr_to_delete[*arrtd_len] = arr[i];
             (*arrtd_len)++;
-        } else {
-            new_arr[new_len] = arr[i];
-            new_len++;
+            delete_item(arr, len, i);
+            i--;
         }
     }
-    *len = new_len;
-    free(arr);
-    arr = new_arr;
     return 0;
 }
 
@@ -80,13 +74,8 @@ int insert_item(int *arr, int *len, int bytes_size) {
 
 
 
-int delete_item(int *arr, int *len) {
-    int ind;
-    int out = input_u(&ind);
-    if (out == -1) {
-        return -1;
-    }
-    if (out >= *len) {
+int delete_item(int *arr, int *len, int ind) {
+    if (ind >= *len) {
         return 1;
     }
     for (int i = ind; i < *len - 1; i++) {

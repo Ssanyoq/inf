@@ -35,18 +35,20 @@ int delete_item_prints(int *arr, int *len) {
     prepare_out();
     printf("Enter an index of element that you want to delete(len = %d): ", *len);
     int ind;
-    int out = delete_item(arr, len);
+    int out = input_u(&ind);
     if (out == -1) {
         return -1;
     }
+    out = delete_item(arr, len, ind);
     if (out == 1) {
         while (out != 0)
         {
             printf("Index out of range(len = %d), try again: ", *len);
-            out = delete_item(arr, len);
+            out = input_u(&ind);
             if (out == -1) {
-            return -1;
+                return -1;
             }
+            out = delete_item(arr, len, ind);
         }
         
     }
