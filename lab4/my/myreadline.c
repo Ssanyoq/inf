@@ -2,17 +2,13 @@
 #include <stdio.h>
 #include "../mem.h"
 
+
 char *readline() {
-    const int limit = 254;
+    int limit = 255;
     char *str = safe_malloc(limit);
-    char c;
-    for (int i = 0; i < limit; i++) {
-        c = getchar();
-        if (c == '\n' || c == EOF) {
-            break;
-        } 
-        printf("%c", c);
-        str[i] = c;
-    }
+    int out = scanf("%255[^\n]", str);
+    if (out == -1) {
+        return NULL;
     return str;
 }
+
