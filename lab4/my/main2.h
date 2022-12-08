@@ -1,7 +1,7 @@
-#ifndef MAIN2_H
-#define MAIN2_H
+#ifndef MAIN1_H
+#define MAIN1_H
 
-// char *safe_malloc(int len);
+char *safe_malloc(int len);
 
 char *input_s();
 

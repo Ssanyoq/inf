@@ -1,29 +1,16 @@
+#include <stdio.h>
 #include <stdlib.h>
-#include "main2.h"
+#include <time.h>
+#include "../mem.h"
 #include "mystring.h"
 #include "myreadline.h"
-#include "../mem.h"
-#include <stdio.h>
 
-const char vowels[12] = {'a','e','i','o','u','y', 'A', 'E', 'I', 'O','U','Y'};
+const char vowels[12] = {'a','e','i','o','u','y',
+ 'A', 'E', 'I', 'O','U','Y'};
 
-// char *safe_malloc(int len) {
-//     char *str = (char*)malloc(len * sizeof(char));
-//     if (!str) {
-//         printf("Error occured while allocating memory\n");
-//         return NULL;
-//     }
-//     return str;
-// }
-
-char *input_s() {
-    char *inp;
-    inp = readline();
-    return inp;
-}
 
 int is_vowel(char c) {
-    for (int i = 0; i < 6; i++) { // 6 - vowels amt
+    for (int i = 0; i < 12; i++) { 
         if (c == vowels[i]) {
             return 1;
         }
@@ -41,7 +28,7 @@ void print_string(char *str, char c){
 char *process(char* str) {
     int len = strlen(str);
     int new_len = 0;
-    char* new_str = safe_malloc(len * 2);
+    char* new_str = safe_malloc(len * 2 + 1);
     for (int i = 0; i < len; i++) {
         if (is_vowel(str[i])) {
             new_str[new_len] = str[i];
@@ -50,20 +37,28 @@ char *process(char* str) {
         new_str[new_len] = str[i];
         new_len++;
     }
+    new_str[new_len] = '\0';
+    new_str = safe_realloc(new_str, new_len + 1);
     return new_str;
 }
 
 int main() {
     char *str;
-    str = input_s();
-    printf("Current string: ");
-    print_string(str, '"');
-    char *new_str = process(str);
-    printf("%d", strlen(new_str));
-    printf("\nNew string: ");
-    print_string(new_str, '"');
-    printf("\n");
-    free(str);
-    free(new_str);
+    str = readline("Input string: ");
+    while (str != NULL) {
+        printf("Current string: ");
+        print_string(str, '"');
+        clock_t start = clock();
+        char *new_str = process(str);
+        clock_t end = clock();
+        printf("\nNew string: ");
+        print_string(new_str, '"');
+        printf("\n");
+        printf("Processed in %lf s.\n", (double)(end - start) / CLOCKS_PER_SEC);
+        free(str);
+        free(new_str);
+        str = readline("Input string: ");
+
+    }
     return 0;
 }

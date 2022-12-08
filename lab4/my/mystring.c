@@ -1,5 +1,9 @@
 #include <stdlib.h>
 
 int strlen(char *str) {
-    return sizeof(str) / sizeof(char);
+    int i = 0;
+    while (str[i] != '\0') {
+        i++;
+    }
+    return i + 1;
 }
