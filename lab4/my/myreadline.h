@@ -1,6 +1,6 @@
 #ifndef READLINE_H
 #define READLINE_H
 
-char *readline();
+char *readline(const char *prompt);
 
 #endif
