@@ -10,6 +10,7 @@ char *readline(const char *prompt) {
     int out = scanf("%255[^\n]", str);
     if (out == -1) {
         return NULL;
+    }
     return str;
 }
 
