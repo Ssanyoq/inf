@@ -7,3 +7,10 @@ build/*
 .git
 *.o
 *.swp
+
+# for diagram storing purposes 
+graph/
+img/
+*.jpg
+*.png
+*.svg
