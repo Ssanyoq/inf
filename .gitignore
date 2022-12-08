@@ -1,5 +1,7 @@
 
-build/
+build/*
+!build/.gitkeep
+# for keeping build/ folder
 .idea
 .vscode
 .git
