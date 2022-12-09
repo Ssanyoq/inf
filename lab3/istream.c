@@ -13,6 +13,7 @@ void enter_to_continue() {
 void clear_buff() {
     scanf("%*[^\n]");
 }
+
 int input_u(int *var) { 
     int out = input_d(var);
     if (out == -1) { 
@@ -29,6 +30,7 @@ int input_u(int *var) {
     return 0;
     
 }
+
 // int input_u(int *var) {
 //     // doesn't clear anything
 //     char t;
@@ -48,6 +50,7 @@ int input_u(int *var) {
 //     *var = inp;
 //     return 0;
 // }
+
 int input_d(int *var) {
     // doesn't clear anything
     char t;
