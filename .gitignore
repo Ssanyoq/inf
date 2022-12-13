@@ -7,6 +7,8 @@ build/*
 .git
 *.o
 *.swp
+tmp/*
+test/*
 
 # for diagram storing purposes 
 graph/
@@ -14,3 +16,7 @@ img/
 *.jpg
 *.png
 *.svg
+
+!media/
+!media/*
+# Images for md files
