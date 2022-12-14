@@ -29,11 +29,22 @@ char *process(char* str) {
     int len = strlen(str);
     int new_len = 0;
     char* new_str = safe_malloc(len * 2 + 1);
+    int was_sep = 0;
     for (int i = 0; i < len; i++) {
         if (is_vowel(str[i])) {
             new_str[new_len] = str[i];
             new_len++;
         }
+        if (str[i] == ' ' || str[i] == '\t') {
+            if (was_sep) {
+                continue;
+            }
+            was_sep = 1;
+            new_str[new_len] = ' ';
+            new_len++;
+            continue;
+        }
+        was_sep = 0;
         new_str[new_len] = str[i];
         new_len++;
     }
