@@ -1,14 +1,12 @@
 
-build/*
-!build/.gitkeep
 # for keeping build/ folder
 .idea
 .vscode
 .git
 *.o
 *.swp
-tmp/*
-test/*
+tmp/
+test/
 
 # for diagram storing purposes 
 graph/
