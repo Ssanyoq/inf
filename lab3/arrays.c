@@ -55,7 +55,7 @@ int insert_item(int *arr, int *len, int bytes_size) {
         }
         if (insert_index > *len) {
             insert_index = *len;
-            // printf("Chosen index was dicreased to %d\n", insert_index);
+            // printf("Chosen index was decreased to %d\n", insert_index);
         }
     }
     printf("Input an integer number - value of an element: ");

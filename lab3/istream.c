@@ -96,6 +96,6 @@ int input_arr(int **arr, int *len, int *bytes_size) {
         }
 	}
     system("clear");
-    printf("Array initialized successfuly\n");
+    printf("Array initialized successfully\n");
 	return 0;
 }

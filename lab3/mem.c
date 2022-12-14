@@ -6,7 +6,7 @@ int *safe_realloc(int *arr, int new_size) {
     // printf("ns: %d a[0]=%d\n", new_size, arr[0]);
     arr = (int*)realloc(arr, new_size);
     if (!arr) {
-        printf("Error occured while reallocating memory\n");
+        printf("Error occurred while reallocating memory\n");
         return NULL;
     }
 
@@ -18,7 +18,7 @@ int *safe_malloc(int len) {
 
     int *arr = (int*)malloc(len * sizeof(int));
     if (!arr) {
-        printf("Error occured while allocating memory\n");
+        printf("Error occurred while allocating memory\n");
         return NULL;
     }
     

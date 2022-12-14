@@ -23,7 +23,7 @@ int insert_item_prints(int *arr, int *len, int bytes_size) {
     prepare_out();
     
     system("clear");
-    printf("Element inserted successfuly\n");
+    printf("Element inserted successfully\n");
     return out;
 }
 
@@ -53,7 +53,7 @@ int delete_item_prints(int *arr, int *len) {
         
     }
     system("clear");
-    printf("Element deleted successfuly\n");
+    printf("Element deleted successfully\n");
     return out;
 }
 
@@ -116,7 +116,7 @@ int process_prints(int *arr, int *len) {
     print_arr(arr, *len, -1, 1);
     free(arr_to_delete);
     system("clear");
-    printf("Array was processed successfuly\n");
+    printf("Array was processed successfully\n");
     return 0;
 }
 
@@ -186,7 +186,7 @@ int menu() {
                 // reallocate
                 user_realloc(&arr, &bytes_size);
                 system("clear");
-                printf("Memory allocated successfuly\n");
+                printf("Memory allocated successfully\n");
                 break;
         }
         quitting = out;
