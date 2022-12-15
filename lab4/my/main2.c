@@ -5,17 +5,16 @@
 #include "mystring.h"
 #include "myreadline.h"
 
-const char vowels[12] = {'a','e','i','o','u','y',
- 'A', 'E', 'I', 'O','U','Y'};
+const char vowels[7] = {'a','e','i','o','u','y', '\0'};
 
 
 int is_vowel(char c) {
-    for (int i = 0; i < 12; i++) { 
-        if (c == vowels[i]) {
-            return 1;
-        }
+    c = tolower(c);
+    if (strchr(vowels, c) == NULL) {
+        return 0;
+    } else {
+        return 1;
     }
-    return 0;
 }
 void print_string(char *str, char c){
     printf("%c", c);

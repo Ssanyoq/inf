@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 int strlen(const char *s) {
     int i = 0;
@@ -10,14 +11,14 @@ int strlen(const char *s) {
 
 char *strchr(const char *s, int c) {
     int i = 0;
-    while (s[i] != '\0' && s[i] != 'c') {
+    while (s[i] != '\0' && s[i] != (char)c) {
         i++;
     }
-    if (s[i] == 'c') {
-        return &(s[i]);
+    if (s[i] == c) {
+        return (char *)&(s[i]);
     } else {
         return NULL;
-    } // warning, что делать((((((
+    }
 }
 
 int tolower(int c) {

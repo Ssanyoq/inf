@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include "../mem.h"
 
-const char vowels[7] = {'a','e','i','o','u','y', '\0'}; // '\0' for strchr
+const char vowels[7] = {'a','e','i','o','u','y', '\0'};
 
 
 int is_vowel(char c) {
