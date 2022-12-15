@@ -19,3 +19,12 @@ char *strchr(const char *s, int c) {
         return NULL;
     }
 }
+
+int tolower(int c) {
+    // 'A' - 65 in ASCII, 'Z' - 90
+    // 'a' - 97 <=> upper + 32
+    if (c >= 65 && c <= 90) {
+        return c + 32;
+    }
+    return c;
+}   
