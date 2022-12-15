@@ -17,7 +17,7 @@ char *strchr(const char *s, int c) {
         return &(s[i]);
     } else {
         return NULL;
-    }
+    } // warning, что делать((((((
 }
 
 int tolower(int c) {
