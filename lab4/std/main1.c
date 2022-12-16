@@ -36,8 +36,8 @@ char *process_word(char *word) {
         }
         new_word[new_len] = word[i];
         new_len++;
+        i++;
     }
-    free(word);
     new_word[new_len] = '\0';
     new_len++;
     new_word = safe_realloc(new_word, new_len);
@@ -51,6 +51,9 @@ char *process(char* str) {
     char *word = strtok(str, " \t ");
     while (word != NULL) {
         word = process_word(word);
+        if(strlen(new_str) != 0) {
+            new_str = strcat(new_str, " ");
+        }
         new_str = strcat(new_str, word);
         free(word);
         word = strtok(NULL, " \t ");
