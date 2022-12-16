@@ -27,7 +27,7 @@ void print_string(char *str, char c){
 
 char *process_word(char *word) {
     int i = 0;
-    char *new_word = safe_malloc(strlen(word) * 2);
+    char *new_word = safe_malloc(strlen(word) * 2 + 1);
     int new_len = 0;
     while (word[i] != '\0') {
         if (is_vowel(word[i])) {
@@ -48,15 +48,16 @@ char *process(char* str) {
     int len = strlen(str);
     int new_len = 0;
     char* new_str = safe_malloc(len * 2 + 1);
-    char *word = strtok(str, " \t ");
+    new_str[0] = '\0';
+    char *word = strtok(str, " \t");
     while (word != NULL) {
         word = process_word(word);
-        if(strlen(new_str) != 0) {
+        if(new_str[0] != '\0') {
             new_str = strcat(new_str, " ");
         }
         new_str = strcat(new_str, word);
         free(word);
-        word = strtok(NULL, " \t ");
+        word = strtok(NULL, " \t");
     }
     return new_str;
 }
