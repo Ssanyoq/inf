@@ -24,31 +24,40 @@ void print_string(char *str, char c){
     printf("%c", c);
 }
 
+char *process_word(char *word) {
+    int i = 0;
+    char *new_word = safe_malloc(strlen(word) * 2 + 1);
+    int new_len = 0;
+    while (word[i] != '\0') {
+        if (is_vowel(word[i])) {
+            new_word[new_len] = word[i];
+            new_len++;
+        }
+        new_word[new_len] = word[i];
+        new_len++;
+        i++;
+    }
+    new_word[new_len] = '\0';
+    new_len++;
+    new_word = safe_realloc(new_word, new_len);
+    return new_word;
+}
+
 char *process(char* str) {
     int len = strlen(str);
     int new_len = 0;
     char* new_str = safe_malloc(len * 2 + 1);
-    int was_sep = 0;
-    for (int i = 0; i < len; i++) {
-        if (is_vowel(str[i])) {
-            new_str[new_len] = str[i];
-            new_len++;
+    new_str[0] = '\0';
+    char *word = strtok(str, " \t");
+    while (word != NULL) {
+        word = process_word(word);
+        if(new_str[0] != '\0') {
+            new_str = strcat(new_str, " ");
         }
-        if (str[i] == ' ' || str[i] == '\t') {
-            if (was_sep) {
-                continue;
-            }
-            was_sep = 1;
-            new_str[new_len] = ' ';
-            new_len++;
-            continue;
-        }
-        was_sep = 0;
-        new_str[new_len] = str[i];
-        new_len++;
+        new_str = strcat(new_str, word);
+        free(word);
+        word = strtok(NULL, " \t");
     }
-    new_str[new_len] = '\0';
-    new_str = safe_realloc(new_str, new_len + 1);
     return new_str;
 }
 

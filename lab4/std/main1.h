@@ -9,6 +9,8 @@ int is_vowel(char c);
 
 void print_string(char *str, char c);
 
+char *process_word(char *word);
+
 char *process(char* str);
 
 int main();
