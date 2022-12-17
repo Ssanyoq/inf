@@ -1,9 +1,13 @@
 #ifndef MYSTRING_H
 #define MYSTRING_H
 
-int strlen(const char *s);
+size_t strlen(const char *s);
 
 char *strchr(const char *s, int c);
+
+char *strtok(char *restrict str, const char *restrict sep);
+
+char *strcat(char *restrict s1, const char *restrict s2);
 
 int tolower(int c);
 
