@@ -57,7 +57,7 @@ int delete_item_prints(int *arr, int *len) {
     return out;
 }
 
-int user_realloc(int **arr, int *bytes_size) {
+int user_realloc(int **arr, int *bytes_size, int *len) {
     prepare_out();
     printf("Input an amount of elements that you want to\n");
     printf("have in your array(int size is %lu): ", sizeof(int));
@@ -68,6 +68,9 @@ int user_realloc(int **arr, int *bytes_size) {
     }
     *arr = (int*)safe_realloc(*arr, inp * sizeof(int));
     *bytes_size = inp * sizeof(int);
+    if (inp < *len) {
+        *len = inp;
+    }
     return 1;
 }    
 
@@ -184,7 +187,7 @@ int menu() {
                 break;
             case 6:
                 // reallocate
-                user_realloc(&arr, &bytes_size);
+                user_realloc(&arr, &bytes_size, len);
                 system("clear");
                 printf("Memory allocated successfully\n");
                 break;

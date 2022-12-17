@@ -70,7 +70,7 @@ int input_d(int *var) {
 
 int input_arr(int **arr, int *len, int *bytes_size) {
     int out;
-    out = user_realloc(arr, bytes_size);
+    out = user_realloc(arr, bytes_size, len);
     if (out == -1) { 
         return -1;
     }
