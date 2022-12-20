@@ -30,8 +30,6 @@ void process_word(char *word, char *new_str, int *len) {
         new_str[*len] = ' ';
         (*len)++;
     }
-    printf("NEW WORD:");
-    print_string(word, '"');
     while (word[i] != '\0') {
         if (is_vowel(word[i])) {
             new_str[*len] = word[i];
@@ -41,8 +39,6 @@ void process_word(char *word, char *new_str, int *len) {
         (*len)++;
         i++;
     }
-    new_str[*len] = '\0';
-    (*len)++;
 }
 
 char *process(char* str) {
@@ -53,15 +49,16 @@ char *process(char* str) {
     new_str[0] = '\0';
     char *word = strtok(str, " \t");
     while (word != NULL) {
-        process_word(word, new_str, &new_len); // don't create tmp buffer
+        process_word(word, new_str, &new_len); // don't create tmp buffer FIXED
         // if(new_str[0] != '\0') {
-        //     new_str = strcat(new_str, " "); // memcpy
+        //     new_str = strcat(new_str, " "); // memcpy ???
         // }
-        // new_str = strcat(new_str, word); // memcpy
+        // new_str = strcat(new_str, word); // memcpy ???
         // free(word);
         word = strtok(NULL, " \t");
-        printf("pop\n");
     }
+    new_str[new_len] = '\0';
+    new_len++;
     new_str = safe_realloc(new_str, new_len);
     return new_str;
 }
