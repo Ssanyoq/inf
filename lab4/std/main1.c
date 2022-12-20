@@ -19,10 +19,8 @@ int is_vowel(char c) {
 }
 void print_string(char *str, char c){
     printf("%c", c);
-    // бяка
-    for (int i = 0; i < strlen(str); i++) { 
-        printf("%c", str[i]);
-    }
+    // бяка (уже нет очевидно)
+    printf("%s", str);
     printf("%c", c);
 }
 
@@ -32,6 +30,8 @@ void process_word(char *word, char *new_str, int *len) {
         new_str[*len] = ' ';
         (*len)++;
     }
+    printf("NEW WORD:");
+    print_string(word, '"');
     while (word[i] != '\0') {
         if (is_vowel(word[i])) {
             new_str[*len] = word[i];
@@ -60,6 +60,7 @@ char *process(char* str) {
         // new_str = strcat(new_str, word); // memcpy
         // free(word);
         word = strtok(NULL, " \t");
+        printf("pop\n");
     }
     new_str = safe_realloc(new_str, new_len);
     return new_str;
