@@ -6,7 +6,7 @@ size_t strlen(const char *s) {
     while (s[i] != '\0') {
         i++;
     }
-    return i + 1;
+    return i;
 }
 
 char *strchr(const char *s, int c) {

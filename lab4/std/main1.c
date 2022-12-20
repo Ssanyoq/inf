@@ -19,7 +19,8 @@ int is_vowel(char c) {
 }
 void print_string(char *str, char c){
     printf("%c", c);
-    for (int i = 0; i < strlen(str); i++) {
+    // бяка
+    for (int i = 0; i < strlen(str); i++) { 
         printf("%c", str[i]);
     }
     printf("%c", c);
@@ -45,17 +46,18 @@ char *process_word(char *word) {
 }
 
 char *process(char* str) {
+    // strdup
     int len = strlen(str);
     int new_len = 0;
     char* new_str = safe_malloc(len * 2 + 1);
     new_str[0] = '\0';
     char *word = strtok(str, " \t");
     while (word != NULL) {
-        word = process_word(word);
+        word = process_word(word); // don't create tmp buffer
         if(new_str[0] != '\0') {
-            new_str = strcat(new_str, " ");
+            new_str = strcat(new_str, " "); // memcpy
         }
-        new_str = strcat(new_str, word);
+        new_str = strcat(new_str, word); // memcpy
         free(word);
         word = strtok(NULL, " \t");
     }
