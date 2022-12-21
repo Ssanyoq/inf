@@ -52,3 +52,8 @@ vg2:
 	rm build/mystring.o
 	rm build/mem.o
 	valgrind build/e2
+
+g1: 
+	gcc std/main1.c mem.c -g -l readline -o build/e1
+g2: 
+	gcc my/main2.c mem.c my/mystring.c my/myreadline.c -g -o build/e2
