@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "../mem.h"
 
 size_t strlen(const char *s) {
     int i = 0;
@@ -50,7 +51,7 @@ char *strtok(char *restrict str, const char *restrict sep) {
 char *strdup(const char *s1) {
     int len = strlen(s1);
     char *new_s = safe_malloc(len);
-    for (int i = 0; i < len) {
+    for (int i = 0; i < len; i++) {
         new_s[i] = s1[i];
     }
     return new_s;
