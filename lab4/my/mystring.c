@@ -31,21 +31,23 @@ char *strtok(char *restrict str, const char *restrict sep) {
     if (start == NULL) {
         return NULL;
     }
+
+
     int i = 0;
-    while (strchr(sep, start[i]) != NULL) {
+    
+    // Moving until separators end
+    while ((strchr(sep, start[i]) != NULL) || (start[i] != '\0')) {
         i++;
-    } // separators ended, new word started
-    char *new_word = (char *)malloc(strlen(start) * sizeof(int));
-    int word_len = 0;
-    while (strchr(sep, start[i]) == NULL) {
+    }
+    char *word = &(start[i]);
+
+    // Moving untill separators start
+    while ((strchr(sep, start[i]) == NULL) || (start[i] != '\0')) {
         i++;
-        new_word[word_len] = start[i];
-        word_len++;
-    } // end of word
-    i++;
+    }
+    start[i] = '\0';
     start = &(start[i]);
-    new_word[word_len] = '\0';
-    return new_word;
+    return word;
 }
 
 char *strdup(const char *s1) {
