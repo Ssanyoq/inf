@@ -47,6 +47,15 @@ char *strtok(char *restrict str, const char *restrict sep) {
     return new_word;
 }
 
+char *strdup(const char *s1) {
+    int len = strlen(s1);
+    char *new_s = safe_malloc(len);
+    for (int i = 0; i < len) {
+        new_s[i] = s1[i];
+    }
+    return new_s;
+}
+
 char *strcat(char *restrict s1, const char *restrict s2) {
     int s1_len = strlen(s1);
     int i = 0;
