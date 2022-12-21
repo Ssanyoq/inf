@@ -7,7 +7,7 @@
 
 
 char *readline(const char *prompt) {
-    char *str = safe_malloc(0);
+    char *str = safe_malloc(1);
     int len = 0;
     printf("%s", prompt);
     char *buf = safe_malloc(BUFSIZE);
@@ -24,7 +24,7 @@ char *readline(const char *prompt) {
         len += buf_len;
         str = safe_realloc(str, len);
         str = strcat(str, buf);
-        free(buf);
+        // free(buf);
     }
 
     scanf("%*c");
