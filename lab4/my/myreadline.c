@@ -3,31 +3,55 @@
 #include "../mem.h"
 #include "mystring.h"
 
-#define BUFSIZE 256
-
-
-char *readline(const char *prompt) {
-    char *str = safe_malloc(1);
-    int len = 0;
+char *readline(char *prompt) {
     printf("%s", prompt);
-    char *buf = safe_malloc(BUFSIZE);
-    int buf_len;
-    int out;
-    while (1) {
-        out = scanf("%.[^\n]%n", BUFSIZE - 1, buf, buf_len);
-        if (out == -1) {
-            return NULL;
+    char *ptr = (char *) malloc(sizeof(char));
+    char buf[81];
+    int n, len = 0, bufLen;
+    *ptr = '\0';
+    do {
+        n = scanf("%80[^\n]%n", buf, &bufLen);
+        if (n < 0) {
+            free(ptr);
+            ptr = NULL;
+            continue;
         }
-        if (out == 0) {
-            break;
+        if (n == 0)
+            scanf("%*c");
+        else {
+            len += bufLen;
+            ptr = (char *) realloc(ptr, len + 1);
+            strcat(ptr, buf);
         }
-        len += buf_len;
-        str = safe_realloc(str, len);
-        str = strcat(str, buf);
-        // free(buf);
-    }
-
-    scanf("%*c");
-    return str;
+    } while (n > 0);
+    return ptr;
 }
+// char *readline(const char *prompt) {
+    
+//     char *ptr = safe_malloc(1);
+//     char buf[81];
+
+//     printf("%s", prompt);
+
+//     int n, len = 0, buf_len;
+//     *ptr = '\0';
+//     do {
+//         printf("?");
+//         n = scanf("%80[^\n]%n", buf, &buf_len);
+//         printf("!");
+//         if (n < 0) {
+//             free(ptr);
+//             ptr = NULL;
+//             continue;
+//         }
+//         if (n == 0)
+//             scanf("%*c");
+//         else {
+//             len += buf_len;
+//             ptr = (char *) realloc(ptr, len + 1);
+//             strcat(ptr, buf);
+//         }
+//     } while (n > 0);
+//     return ptr;
+// }
 
