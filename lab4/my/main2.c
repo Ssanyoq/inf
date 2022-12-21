@@ -18,46 +18,47 @@ int is_vowel(char c) {
 }
 void print_string(char *str, char c){
     printf("%c", c);
-    for (int i = 0; i < strlen(str); i++) {
-        printf("%c", str[i]);
-    }
+    // бяка (уже нет очевидно)
+    printf("%s", str);
     printf("%c", c);
 }
 
-char *process_word(char *word) {
+void process_word(char *word, char *new_str, int *len) {
     int i = 0;
-    char *new_word = safe_malloc(strlen(word) * 2 + 1);
-    int new_len = 0;
+    if (*len != 0) {
+        new_str[*len] = ' ';
+        (*len)++;
+    }
     while (word[i] != '\0') {
         if (is_vowel(word[i])) {
-            new_word[new_len] = word[i];
-            new_len++;
+            new_str[*len] = word[i];
+            (*len)++;
         }
-        new_word[new_len] = word[i];
-        new_len++;
+        new_str[*len] = word[i];
+        (*len)++;
         i++;
     }
-    new_word[new_len] = '\0';
-    new_len++;
-    new_word = safe_realloc(new_word, new_len);
-    return new_word;
 }
 
 char *process(char* str) {
+    str = strdup(str);
     int len = strlen(str);
     int new_len = 0;
     char* new_str = safe_malloc(len * 2 + 1);
     new_str[0] = '\0';
     char *word = strtok(str, " \t");
     while (word != NULL) {
-        word = process_word(word);
-        if(new_str[0] != '\0') {
-            new_str = strcat(new_str, " ");
-        }
-        new_str = strcat(new_str, word);
-        free(word);
+        process_word(word, new_str, &new_len); // don't create tmp buffer FIXED
+        // if(new_str[0] != '\0') {
+        //     new_str = strcat(new_str, " "); // memcpy ???
+        // }
+        // new_str = strcat(new_str, word); // memcpy ???
+        // free(word);
         word = strtok(NULL, " \t");
     }
+    new_str[new_len] = '\0';
+    new_len++;
+    new_str = safe_realloc(new_str, new_len);
     return new_str;
 }
 
