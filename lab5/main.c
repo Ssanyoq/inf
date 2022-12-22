@@ -15,7 +15,6 @@ int main(int argc, char *argv[]) {
     while ((c = getopt(argc, argv, "s:r:f")) != -1) {
         switch (c) {
             case 's':
-                was_sorting = 1;
                 arg = optarg[0];
                 switch (arg) {
                     case 'q':
@@ -30,8 +29,8 @@ int main(int argc, char *argv[]) {
                     default:
                         fprintf(stderr, "Error: sorting of this type does not exist\n");
                         return 1;
-                break;
                 }
+                break;
             case 'r':
                 if (optarg[0] == '0' || optarg[0] == '1') {
                     reversed = (int)optarg[0];
@@ -39,6 +38,7 @@ int main(int argc, char *argv[]) {
                     fprintf(stderr, "Error: incorrect -r argument\n");
                     return 1;
                 }
+                break;
             case 'f':
                 if (optarg[0] == '1' || optarg[0] == '2' || optarg[0] == '3') {
                     sort_type = (int)optarg[0];
@@ -46,6 +46,7 @@ int main(int argc, char *argv[]) {
                     fprintf(stderr, "Error: incorrect -q argument\n");
                     return 1;
                 }
+                break;
             default:
                 fprintf(stderr, "Error: incorrect argument given\n");
                 return 1;
@@ -53,10 +54,13 @@ int main(int argc, char *argv[]) {
     }
 
     // postitional
-
+    if (optind >= argc) {
+        fprintf(stderr, "Error: missing positional arguments\n");
+        return 1;
+    }
     FILE *read_file = (FILE *)argv[optind];
     if (!read_file) {
-        fprintf(stderr, "Error: missing required argument");
+        fprintf(stderr, "Error: missing required argument\n");
         return 1;
     }
     if (access((char *)read_file, F_OK) == 0) {
@@ -65,10 +69,14 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Error: read file does not exist\n");
         return 1;
     }
-
+    optind++;
+    if (optind >= argc) {
+        fprintf(stderr, "Error: missing positional arguments\n");
+        return 1;
+    }
     FILE *write_file = (FILE *)argv[optind];
     if (!write_file) {
-        fprintf(stderr, "Error: missing required argument");
+        fprintf(stderr, "Error: missing required argument\n");
         return 1;
     }
     if (access((char *)write_file, F_OK) == 0) {
