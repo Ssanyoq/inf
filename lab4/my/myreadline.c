@@ -3,14 +3,16 @@
 #include "../mem.h"
 #include "mystring.h"
 
-char *readline(char *prompt) {
+char *readline(const char *prompt) {
     printf("%s", prompt);
     char *ptr = (char *) malloc(sizeof(char));
     char buf[81];
     int n, len = 0, bufLen;
     *ptr = '\0';
     do {
+        printf("?");
         n = scanf("%80[^\n]%n", buf, &bufLen);
+        printf("!");
         if (n < 0) {
             free(ptr);
             ptr = NULL;

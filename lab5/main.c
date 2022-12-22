@@ -4,12 +4,11 @@
 #include "mystruct.h"
 
 // sort: q, o, s
-// args: <read file> <write file> -s <sorting type> -q(quiet)
-
+// args: <read file> <write file> -s <sorting type> -q <1|0 - quiet or not>\// -r <1|0 - reversed or not> -f <field for sorting>
 int main(int argc, char *argv[]) {
     int c;
-    int was_sorting = 0;
     int sort_type = 0; // 0 - qsort, 1 - odd even, 2 - Shell
+    int 
     int quiet = 0;
     char arg;
     while ((c = getopt(argc, argv, "s:q")) != -1) {
@@ -36,7 +35,7 @@ int main(int argc, char *argv[]) {
                 if (optarg[0] == '1' || optarg[0] == '2') {
                     quiet = (int)optarg[0];
                 } else {
-                    fprintf(stderr, "Error: incorrect -q argument");
+                    fprintf(stderr, "Error: incorrect -q argument\n");
                     return 1;
                 }
                 break;
@@ -47,10 +46,6 @@ int main(int argc, char *argv[]) {
         printf("???\n");
     }
     printf("%d\n",c);
-    if (!was_sorting) {
-        fprintf(stderr, "Error: sorting not specified\n");
-        return 1;
-    }
 
     // postitional
 
@@ -58,7 +53,7 @@ int main(int argc, char *argv[]) {
     if (access((char *)read_file, F_OK) == 0) {
         // gut
     } else {
-        fprintf(stderr, "Error: read file does not exist");
+        fprintf(stderr, "Error: read file does not exist\n");
         return 1;
     }
 
@@ -66,9 +61,9 @@ int main(int argc, char *argv[]) {
     if (access((char *)write_file, F_OK) == 0) {
         // gut
     } else {
-        fprintf(stderr, "Error: write file does not exist");
+        fprintf(stderr, "Error: write file does not exist\n");
         return 1;
     }
-    
+    printf("success?");    
     return 0;
 }
