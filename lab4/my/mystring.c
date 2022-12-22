@@ -22,7 +22,7 @@ char *strchr(const char *s, int c) {
     }
 }
 
-char *strtok(char *restrict str, const char *restrict sep) {
+char *strtok(char */*restrict*/str, const char */*restrict*/ sep) {
     static char *start;
 
     if (str != NULL) {
