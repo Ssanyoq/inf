@@ -10,12 +10,14 @@ int main(int argc, char **argv) {
     int was_sorting = 0;
     int sort_type = 0; // 0 - qsort, 1 - odd even, 2 - Shell
     int quiet = 0;
+    int arg;
     while ((c = getopt(argc, argv, "")) != -1) {
         switch (c)
         {
         case 's':
             was_sorting = 1;
-            switch (optarg)
+            arg = optarg[0];
+            switch (arg)
             {
             case 'q':
                 sort_type = 0;
