@@ -47,17 +47,23 @@ char *strtok(char *restrict str, const char * restrict sep) {
     if (i == 0 || start[i] == word[0]) { // 0 symbols || only separators
         return NULL;
     }
-    start[i] = '\0';
-    start = &(start[i + 1]);
+    if (start[i] == '\0') {
+        start = NULL;
+    } else {
+        start[i] = '\0';
+        start = &(start[i + 1]);
+    }
     return word;
 }
 
 char *strdup(const char *s1) {
     int len = strlen(s1);
-    char *new_s = safe_malloc(len);
-    for (int i = 0; i < len; i++) {
+    char *new_s = safe_malloc(len + 1);
+    int i = 0;
+    for (; i < len; i++) {
         new_s[i] = s1[i];
     }
+    new_s[i] = '\0';
     return new_s;
 }
 
