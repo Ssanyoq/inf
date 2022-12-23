@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "mystruct.h"
+#include "files.h"
+#include "sorts.h"
 
 // sort: q, o, s
 // args: <read file> <write file> -s <sorting type>\
@@ -10,7 +12,7 @@ int main(int argc, char *argv[]) {
     int c;
     int sort_type = 0; // 0 - qsort, 1 - odd even, 2 - Shell
     int reversed = 0;
-    int field = 0; // 0 - name, 1 - phone, 2 - 
+    int field = 0; // 0 - name, 1 - phone, 2 - timestamp
     char arg;
     while ((c = getopt(argc, argv, "s:r:f")) != -1) {
         switch (c) {
@@ -58,12 +60,12 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Error: missing positional arguments\n");
         return 1;
     }
-    FILE *read_file = (FILE *)argv[optind];
+    char *read_file = argv[optind];
     if (!read_file) {
         fprintf(stderr, "Error: missing required argument\n");
         return 1;
     }
-    if (access((char *)read_file, F_OK) == 0) {
+    if (access(read_file, F_OK) == 0) {
         // gut
     } else {
         fprintf(stderr, "Error: read file does not exist\n");
@@ -74,17 +76,19 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Error: missing positional arguments\n");
         return 1;
     }
-    FILE *write_file = (FILE *)argv[optind];
+    char *write_file = argv[optind];
     if (!write_file) {
         fprintf(stderr, "Error: missing required argument\n");
         return 1;
     }
-    if (access((char *)write_file, F_OK) == 0) {
+    if (access(write_file, F_OK) == 0) {
         // gut
     } else {
         fprintf(stderr, "Error: write file does not exist\n");
         return 1;
     }
-    printf("success?");    
+
+
+    Subscriber *arr = parse_file(read_file); 
     return 0;
 }
