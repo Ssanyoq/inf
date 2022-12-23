@@ -1,4 +1,5 @@
 #include "mystruct.h"
+#include "sorts.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,8 +24,8 @@ int compare_phones(Subscriber a, Subscriber b) {
 }
 
 int compare_timestamps(Subscriber a, Subscriber b) {
-    int num1 = a.timestamp
-    int num2 = b.timestamp
+    int num1 = a.timestamp;
+    int num2 = b.timestamp;
     if (num1 > num2) {
         return 1;
     } else if (num1 == num2) {
@@ -45,7 +46,7 @@ int make_int(char *phone) {
     return out;
 }
 
-void qsortpp(Subscriber *arr, size_t size, int sort_type) { // pp for plus plus
+void qsortpp(Subscriber *arr, int size, int sort_type) { // pp for plus plus
     switch (sort_type) {// 0 - name, 1 - phone, 2 - timestamp
     case 0:
         qsort(arr, sizeof(Subscriber), size, compare_names);
@@ -59,12 +60,12 @@ void qsortpp(Subscriber *arr, size_t size, int sort_type) { // pp for plus plus
     }
 }
 
-void odd_even_sort(Subscriber *arr, size_t size, int(*compar)(Subscriber, Subscriber)) {
+void odd_even_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscriber)) {
     short any_changes = 1;
     Subscriber buff;
     while (any_changes) {
         any_changes = 0;
-        for (int i = 1; i < n - 1; i += 2) {
+        for (int i = 1; i < size - 1; i += 2) {
             if (compar(arr[i], arr[i + 1]) == 1) {
                 buff = arr[i];
                 arr[i] = arr[i + 1];
@@ -73,7 +74,7 @@ void odd_even_sort(Subscriber *arr, size_t size, int(*compar)(Subscriber, Subscr
             }
         }
 
-        for (int i = 0; i < n - 1; i += 2) {
+        for (int i = 0; i < size - 1; i += 2) {
             if (compar(arr[i], arr[i + 1]) == 1) {
                 buff = arr[i];
                 arr[i] = arr[i + 1];

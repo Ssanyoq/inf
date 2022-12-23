@@ -9,8 +9,8 @@ int compare_timestamps(Subscriber a, Subscriber b);
 
 int make_int(char *phone);
 
-void qsortpp(Subscriber *arr, size_t size, int sort_type);
+void qsortpp(Subscriber *arr, int size, int sort_type);
 
-void odd_even_sort(Subscriber *arr, size_t size, int(*compar)(Subscriber, Subscriber));
+void odd_even_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscriber));
 
-#endif SORTS_H
+#endif

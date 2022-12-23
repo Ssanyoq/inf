@@ -1,4 +1,4 @@
-#ifdef FILES_H
+#ifndef FILES_H
 #define FILES_H
 
 Subscriber *parse_file(char *path);
