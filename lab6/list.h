@@ -4,7 +4,7 @@
 typedef struct Item
 {
     char symb;
-    Item *ptr;
+    struct Item *ptr;
 } Item;
 
 typedef struct
@@ -12,3 +12,4 @@ typedef struct
     Item *head;
 } List;
 
+#endif
