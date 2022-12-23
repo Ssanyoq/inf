@@ -6,6 +6,7 @@
 char *readline(const char *prompt) {
     
     char *ptr = safe_malloc(1);
+    ptr[0] = '\0';
     char buf[256];
 
     printf("%s", prompt);
