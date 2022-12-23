@@ -13,4 +13,6 @@ void qsortpp(Subscriber *arr, int size, int sort_type);
 
 void odd_even_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscriber));
 
+void shell_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscriber));
+
 #endif
