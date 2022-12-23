@@ -6,8 +6,11 @@
 
 Subscriber *parse_file(char *path) {
     FILE *readfile = fopen(path, "r");
-    int len;
-    fscanf(readfile, "%d", len);
+    printf("here\n");
+    char *inp;
+    char *str_part;
+    fscanf(readfile, "%s", inp);
+    long len = strtol(inp, &str_part, 10);
     printf("len: %d\n", len);
     char *a; 
     fscanf(readfile, "%s", a);
