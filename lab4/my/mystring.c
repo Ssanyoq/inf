@@ -34,21 +34,21 @@ char *strtok(char *restrict str, const char * restrict sep) {
 
 
     int i = 0;
-    printf("yo here\n");
     
     // Moving until separators end
     while ((strchr(sep, start[i]) != NULL) && (start[i] != '\0')) {
         i++;
     }
-    printf("aa\n");
     char *word = &(start[i]);
-    printf("wow\n"); 
     // Moving until separators start
     while ((strchr(sep, start[i]) == NULL) && (start[i] != '\0')) {
         i++;
     }
+    if (i == 0 || start[i] == word[0]) { // 0 symbols || only separators
+        return NULL;
+    }
     start[i] = '\0';
-    start = &(start[i]);
+    start = &(start[i + 1]);
     return word;
 }
 
