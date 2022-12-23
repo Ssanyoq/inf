@@ -59,6 +59,7 @@ char *process(char* str) {
     new_str[new_len] = '\0';
     new_len++;
     new_str = safe_realloc(new_str, new_len);
+    free(str);
     return new_str;
 }
 
