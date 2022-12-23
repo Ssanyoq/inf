@@ -22,7 +22,7 @@ char *strchr(const char *s, int c) {
     }
 }
 
-char *strtok(char */*restrict*/str, const char */*restrict*/ sep) {
+char *strtok(char *restrict str, const char * restrict sep) {
     static char *start;
 
     if (str != NULL) {
@@ -34,15 +34,17 @@ char *strtok(char */*restrict*/str, const char */*restrict*/ sep) {
 
 
     int i = 0;
+    printf("yo here\n");
     
     // Moving until separators end
-    while ((strchr(sep, start[i]) != NULL) || (start[i] != '\0')) {
+    while ((strchr(sep, start[i]) != NULL) && (start[i] != '\0')) {
         i++;
     }
+    printf("aa\n");
     char *word = &(start[i]);
-
-    // Moving untill separators start
-    while ((strchr(sep, start[i]) == NULL) || (start[i] != '\0')) {
+    printf("wow\n"); 
+    // Moving until separators start
+    while ((strchr(sep, start[i]) == NULL) && (start[i] != '\0')) {
         i++;
     }
     start[i] = '\0';
