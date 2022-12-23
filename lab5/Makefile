@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = 
 DEBUGFLAGS = -g
-SOURCES = main.c
+SOURCES = main.c files.c sorts.c
 EXENAME = e
 EXEDIR = build
 
