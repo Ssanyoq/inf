@@ -1,5 +1,3 @@
-
-# for keeping build/ folder
 .idea
 .vscode
 .git
@@ -18,3 +16,6 @@ img/
 !media/
 !media/*
 # Images for md files
+
+write.txt
+# ^for 5th lab
