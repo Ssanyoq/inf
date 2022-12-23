@@ -58,3 +58,29 @@ void qsortpp(Subscriber *arr, size_t size, int sort_type) { // pp for plus plus
         break;
     }
 }
+
+void odd_even_sort(Subscriber *arr, size_t size, int(*compar)(Subscriber, Subscriber)) {
+    short any_changes = 1;
+    Subscriber buff;
+    while (any_changes) {
+        any_changes = 0;
+        for (int i = 1; i < n - 1; i += 2) {
+            if (compar(arr[i], arr[i + 1]) == 1) {
+                buff = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = buff;
+                any_changes = 1;
+            }
+        }
+
+        for (int i = 0; i < n - 1; i += 2) {
+            if (compar(arr[i], arr[i + 1]) == 1) {
+                buff = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = buff;
+                any_changes = 1;
+            }
+        }
+    }
+    
+}
