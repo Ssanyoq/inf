@@ -88,9 +88,10 @@ void odd_even_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscribe
 
 void shell_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscriber)) {
     for (int interval = size / 2; interval >= 1; interval = interval / 2) {
-        for (int i = interval; i < n; i++) {
+        for (int i = interval; i < size; i++) {
             int start_ind = i;
-            for (int j = i; j >= interval; j -= interval) {
+            int j = i;
+            for (; j >= interval; j -= interval) {
                 if (compar(arr[j - interval], arr[i]) == 1) {
                     arr[j] = arr[j - interval];
                 } else {
