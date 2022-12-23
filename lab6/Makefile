@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = 
 DEBUGFLAGS = -g
-SOURCES = main.c io.c
+SOURCES = main.c io.c list.c
 EXENAME = e
 EXEDIR = build
 

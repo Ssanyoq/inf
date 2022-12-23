@@ -34,6 +34,10 @@ List *read_list() {
         free(cur);
         last_before_sep->ptr = NULL;
     }
+    if (prev == NULL) {
+        free(out);
+        return NULL;
+    }
     cur->ptr = NULL;
     return out;
 }

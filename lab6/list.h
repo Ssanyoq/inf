@@ -12,4 +12,6 @@ typedef struct
     Item *head;
 } List;
 
+void free_list(List *l);
+
 #endif
