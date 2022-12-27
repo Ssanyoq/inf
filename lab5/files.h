@@ -1,6 +1,10 @@
 #ifndef FILES_H
 #define FILES_H
 
-Subscriber *parse_file(char *path);
+char *freadline(FILE *readfile);
+
+Subscriber *parse_file(char *path, int *size);
+
+void write_file(char *path, Subscriber *arr, int size);
 
 #endif
