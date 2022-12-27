@@ -3,88 +3,68 @@
 #include "list.h"
 #include "io.h"
 
-#define N 4
+#define N 10
 
 void process(List *l) {
     Item *cur = l->head;
 
     Item *word_start = NULL;
     Item *word_end = NULL;
-    Item *marker = NULL;
     Item *symb_before_word = NULL;
-    int word_i;
     int word_len = 0;
-    int marker_i;
-
+    
     while (cur != NULL) {
-        if (cur->symb != ' ') {
+        if (cur->symb == ' ') {
             if (word_len != 0) {
-                word_end = cur;
-                if (word_i - marker_i > N) {
-                    marker = marker->ptr;
-                    marker_i++;
+                if (N % word_len == 0) {
+                    goto skip; // ---------------
                 }
-            } else {
-                word_end = cur;
-                word_start = cur;
-                marker = cur;
-            }
-            word_len++;
-            word_i++;
-        } else {
-            if (word_len != 0) {
-                if (N < word_len) {
-                    // ez
-                } else {
-                    int cur_n = N % word_len;
-                    if (word_i - marker_i < cur_n) {
-                        marker_i = 0;
-                        marker = word_start;
+                Item *m = word_start;
+                for (int i = 0; i < word_len; i++) {
+                    if (word_len - 1 - i == N % word_len){
+                        break;
                     }
-                    while (word_i - marker_i != cur_n)
-                    {
-                        marker = marker->ptr;
-                        marker_i++;
-                    }
-                        
+                    m = m->ptr;
                 }
-                if (symb_before_word != NULL) {
-                    symb_before_word->ptr = marker->ptr;
+                if (symb_before_word == NULL) {
+                    l->head = m->ptr;
                 } else {
-                    l->head = marker->ptr;
+                    symb_before_word->ptr = m->ptr;
                 }
-                marker->ptr = cur;
                 word_end->ptr = word_start;
-                if (word_start == l->head) {
-                    l->head = marker;
-                }
+                m->ptr = cur;
+                skip: // -------------------------
                 word_len = 0;
-                marker_i = 0;
-                word_i = 0;
-
             }
+
             symb_before_word = cur;
         }
-
-
+        else {
+            if (word_len == 0) {
+                word_start = cur;
+            }
+            word_len++;
+            word_end = cur;
+        }  
         cur = cur->ptr;
     }
-    printf("normal\n");
     if (word_len != 0) {
-        if (N < word_len) {
-            if (symb_before_word != NULL) {
-                symb_before_word->ptr = marker->ptr;
-            } else {
-                l->head = marker->ptr;
+        Item *m = word_start;
+        for (int i = 0; i < word_len; i++) {
+            if (word_len - 1 - i == N % word_len){
+                break;
             }
-            marker->ptr = cur;
-            word_end->ptr = word_start;
-            if (word_start == l->head) {
-                l->head = marker;
-            }
+            m = m->ptr;
         }
+        if (symb_before_word == NULL) {
+            l->head = m->ptr;
+        } else {
+            symb_before_word->ptr = m->ptr;
+        }
+        word_end->ptr = word_start;
+        m->ptr = cur;
+        word_len = 0;
     }
-    
 }
 
 int main() {
