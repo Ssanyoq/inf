@@ -85,7 +85,7 @@ void odd_even_sort(Subscriber *arr, int size, int(*compar)(const void *, const v
     while (any_changes) {
         any_changes = 0;
         for (int i = 1; i < size - 1; i += 2) {
-            if (compar(arr[i], arr[i + 1]) == 1) {
+            if (compar((void *)&(arr[i]), (void *)&(arr[i + 1]))){
                 buff = arr[i];
                 arr[i] = arr[i + 1];
                 arr[i + 1] = buff;
@@ -94,7 +94,7 @@ void odd_even_sort(Subscriber *arr, int size, int(*compar)(const void *, const v
         }
 
         for (int i = 0; i < size - 1; i += 2) {
-            if (compar(arr[i], arr[i + 1]) == 1) {
+            if (compar((void *)&(arr[i]), (void *)&(arr[i + 1])) == 1) {
                 buff = arr[i];
                 arr[i] = arr[i + 1];
                 arr[i + 1] = buff;
@@ -111,7 +111,7 @@ void shell_sort(Subscriber *arr, int size, int(*compar)(const void *, const void
             int start_ind = i;
             int j = i;
             for (; j >= interval; j -= interval) {
-                if (compar(arr[j - interval], arr[i]) == 1) {
+                if (compar((void *)&(arr[j - interval]), (void *)&(arr[i])) == 1) {
                     arr[j] = arr[j - interval];
                 } else {
                     break;
