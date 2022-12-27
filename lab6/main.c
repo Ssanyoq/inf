@@ -3,11 +3,13 @@
 #include "list.h"
 #include "io.h"
 
-#define N 10
+#define N 1
 
 void process(List *l) {
+    if (N == 0) {
+        return;
+    }
     Item *cur = l->head;
-
     Item *word_start = NULL;
     Item *word_end = NULL;
     Item *symb_before_word = NULL;
@@ -16,7 +18,7 @@ void process(List *l) {
     while (cur != NULL) {
         if (cur->symb == ' ') {
             if (word_len != 0) {
-                if (N % word_len == 0) {
+                if (N % word_len == 0 || word_len == 1) {
                     goto skip; // ---------------
                 }
                 Item *m = word_start;
@@ -49,6 +51,9 @@ void process(List *l) {
         cur = cur->ptr;
     }
     if (word_len != 0) {
+        if (N % word_len == 0 || word_len == 1) {
+            goto skip2; // ---------------
+        }
         Item *m = word_start;
         for (int i = 0; i < word_len; i++) {
             if (word_len - 1 - i == N % word_len){
@@ -63,6 +68,7 @@ void process(List *l) {
         }
         word_end->ptr = word_start;
         m->ptr = cur;
+        skip2: // -------------------------
         word_len = 0;
     }
 }
