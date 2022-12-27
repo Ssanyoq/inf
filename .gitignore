@@ -17,5 +17,6 @@ img/
 !media/*
 # Images for md files
 
-write.txt
+lab5/write.txt
+lab5/read.txt
 # ^for 5th lab
