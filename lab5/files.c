@@ -53,6 +53,7 @@ int check_phone(char *phone) {
     }
     short was_plus = 0;
     int dig_amt = 0;
+    int symb_amt = 0;
     for (int i = 0; i < len; i++) {
         if (phone[i] == '+') {
             if (was_plus || dig_amt > 0) {
@@ -64,7 +65,8 @@ int check_phone(char *phone) {
         } else if (phone[i] != ' ' && phone[i] != '\t') {
             return 0;
         }
-        if (dig_amt > 16) {
+        symb_amt++;
+        if (symb_amt > 16) {
             return 0;
         }
     }
@@ -88,11 +90,11 @@ int check_timestamp(char *timestamp) {
     return 1;
 }
 
-Subscriber *parse_file(char *path) {
+Subscriber *parse_file(char *path, int *size) {
     FILE *readfile = fopen(path, "r");
     char *marker;
     char *str_part = freadline(readfile);
-    long len = strtol(str_part, &marker, 10);
+    int len = strtol(str_part, &marker, 10);
     if (marker == str_part) {
         printf("File's length not found.\n");
         return NULL;
@@ -106,6 +108,7 @@ Subscriber *parse_file(char *path) {
         char *timestamp = freadline(readfile);
         if (!check_name(name) || !check_phone(phone) || !check_timestamp(timestamp)) {
             printf("Incorrect element No.%d, won't be included in the array\n", i + 1);
+            len--;
             continue;
         }
         char *m;
@@ -121,5 +124,16 @@ Subscriber *parse_file(char *path) {
         out = (Subscriber *)safe_realloc(out, (real_i + 1) * sizeof(Subscriber));
     }
     fclose(readfile);
+    *size = len;
     return out;
+}
+
+void write_file(char *path, Subscriber *arr, int size) {
+    printf("in writing\n");
+    FILE *wfile = fopen(path, 'w');
+    for (int i = 0; i < size; i++) {
+        fprintf(wfile, "%s\n", arr[i].name);
+        fprintf(wfile, "%s\n", arr[i].phone);
+        fprintf(wfile, "%d\n", arr[i].timestamp);
+    }
 }
