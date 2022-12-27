@@ -10,9 +10,9 @@
 // -r <1|0 - reversed or not> -f <field for sorting>
 int main(int argc, char *argv[]) {
     int c;
-    int sort_type = 0; // 0 - qsort, 1 - odd even, 2 - Shell
+    void (* sort)(Subscriber *, int, int(*)(const void *, const void *)); // 0 - qsort, 1 - odd even, 2 - Shell
     int reversed = 0;
-    int field = 0; // 0 - name, 1 - phone, 2 - timestamp
+    int (* compar)(const void *, const void *); // 0 - name, 1 - phone, 2 - timestamp
     char arg;
     while ((c = getopt(argc, argv, "s:r:f")) != -1) {
         switch (c) {
@@ -20,13 +20,13 @@ int main(int argc, char *argv[]) {
                 arg = optarg[0];
                 switch (arg) {
                     case 'q':
-                        sort_type = 0;
+                        sort = qsortpp;
                         break;
                     case 'o':
-                        sort_type = 1;
+                        sort = odd_even_sort;
                         break;
                     case 's':
-                        sort_type = 2;
+                        sort = shell_sort;
                         break;
                     default:
                         fprintf(stderr, "Error: sorting of this type does not exist\n");
@@ -42,11 +42,29 @@ int main(int argc, char *argv[]) {
                 }
                 break;
             case 'f':
-                if (optarg[0] == '1' || optarg[0] == '2' || optarg[0] == '3') {
-                    sort_type = (int)optarg[0];
-                } else {
-                    fprintf(stderr, "Error: incorrect -q argument\n");
-                    return 1;
+                switch (optarg[0])
+                {
+                    case '0':
+                        compar = compare_names;
+                        if (reversed) {
+                            compar = rev_names;
+                        }
+                        break;
+                    case '1':
+                        compar = compare_phones;
+                        if (reversed) {
+                            compar = rev_phones;
+                        }
+                        break;
+                    case '2':
+                        compar = compare_timestamps;
+                        if (reversed) {
+                            compar = rev_timestamps;
+                        }
+                        break;
+                    default:
+                        fprintf(stderr, "Error: incorrect -f argument\n");
+                        return 1;
                 }
                 break;
             default:
@@ -88,7 +106,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    int len;
+    Subscriber *arr = parse_file(read_file, &len); 
+    printf("off parsing\n");
 
-    Subscriber *arr = parse_file(read_file); 
-    return 0;
+    sort(arr, len, compar);
+    printf("alrdy here\n");
+
 }
