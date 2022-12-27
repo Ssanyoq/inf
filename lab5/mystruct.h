@@ -4,7 +4,7 @@
 typedef struct
 {
     char *name;
-    char phone[17];
+    char *phone;
     int timestamp;
 } Subscriber; 
 
