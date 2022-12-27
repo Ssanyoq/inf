@@ -11,10 +11,27 @@ int compare_names(const void *a, const void *b) {
     return strcmp(((Subscriber *)a)->name, ((Subscriber *)b)->name);
 }
 
+int rev_names(const void *a, const void *b) {
+    // Compares by names
+    return strcmp(((Subscriber *)b)->name, ((Subscriber *)a)->name);
+}
+
 int compare_phones(const void *a, const void *b) {
     int num1 = make_int(((Subscriber *)a)->phone);
     int num2 = make_int(((Subscriber *)b)->phone);
     if (num1 > num2) {
+        return 1;
+    } else if (num1 == num2) {
+        return 0;
+    } else {
+        return -1;
+    }
+}
+
+int rev_phones(const void *a, const void *b) {
+    int num1 = make_int(((Subscriber *)a)->phone);
+    int num2 = make_int(((Subscriber *)b)->phone);
+    if (num1 < num2) {
         return 1;
     } else if (num1 == num2) {
         return 0;
@@ -35,6 +52,18 @@ int compare_timestamps(const void *a, const void *b) {
     }
 }
 
+int rev_timestamps(const void *a, const void *b) {
+    int num1 = ((Subscriber *)a)->timestamp;
+    int num2 = ((Subscriber *)a)->timestamp;
+    if (num1 < num2) {
+        return 1;
+    } else if (num1 == num2) {
+        return 0;
+    } else {
+        return -1;
+    }
+}
+
 int make_int(char *phone) {
     int len = strlen(phone);
     int out = 0;
@@ -46,21 +75,11 @@ int make_int(char *phone) {
     return out;
 }
 
-void qsortpp(Subscriber *arr, int size, int sort_type) { // pp for plus plus
-    switch (sort_type) {// 0 - name, 1 - phone, 2 - timestamp
-    case 0:
-        qsort(arr, sizeof(Subscriber), size, compare_names);
-        break;
-    case 1:
-        qsort(arr, sizeof(Subscriber), size, compare_phones);
-        break;
-    case 2:
-        qsort(arr, sizeof(Subscriber), size, compare_timestamps);
-        break;
-    }
+void qsortpp(Subscriber *arr, int size, int(*compar)(const void *, const void *)) { // pp for plus plus
+    qsort(arr, sizeof(Subscriber), size, compar);
 }
 
-void odd_even_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscriber)) {
+void odd_even_sort(Subscriber *arr, int size, int(*compar)(const void *, const void *)) {
     short any_changes = 1;
     Subscriber buff;
     while (any_changes) {
@@ -86,7 +105,7 @@ void odd_even_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscribe
     
 }
 
-void shell_sort(Subscriber *arr, int size, int(*compar)(Subscriber, Subscriber)) {
+void shell_sort(Subscriber *arr, int size, int(*compar)(const void *, const void *)) {
     for (int interval = size / 2; interval >= 1; interval = interval / 2) {
         for (int i = interval; i < size; i++) {
             int start_ind = i;

@@ -3,9 +3,15 @@
 
 int compare_names(const void *a, const void *b);
 
+int rev_names(const void *a, const void *b);
+
 int compare_phones(const void *a, const void *b);
 
+int rev_phones(const void *a, const void *b);
+
 int compare_timestamps(const void *a, const void *b);
+
+int rev_timestamps(const void *a, const void *b);
 
 int make_int(char *phone);
 
