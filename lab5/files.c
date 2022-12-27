@@ -6,7 +6,7 @@
 #include "mem.h"
 
 char *freadline(FILE *readfile) {
-    char *ptr = safe_malloc(1 * sizeof(char));
+    char *ptr = (char *)safe_malloc(1 * sizeof(char));
     char buf[256];
 
     int n, len = 0, buf_len;
@@ -22,7 +22,7 @@ char *freadline(FILE *readfile) {
             fscanf(readfile, "%*c");
         else {
             len += buf_len;
-            ptr = safe_realloc(ptr, (len + 1) * sizeof(char));
+            ptr = (char *)safe_realloc(ptr, (len + 1) * sizeof(char));
             strcat(ptr, buf);
         }
     } while (n > 0);
@@ -59,7 +59,7 @@ int check_phone(char *phone) {
                 return 0;
             }
             was_plus = 1;
-        } else if ('0' <= phone[i] || phone[i] <= '9') {
+        } else if ('0' <= phone[i] && phone[i] <= '9') {
             dig_amt++;
         } else if (phone[i] != ' ' && phone[i] != '\t') {
             return 0;
@@ -75,7 +75,7 @@ int check_phone(char *phone) {
 }
 
 int check_timestamp(char *timestamp) {
-    int len = strlen(phone);
+    int len = strlen(timestamp);
     if (len == 0) {
         return 0;
     }
@@ -90,7 +90,6 @@ int check_timestamp(char *timestamp) {
 
 Subscriber *parse_file(char *path) {
     FILE *readfile = fopen(path, "r");
-    printf("here\n");
     char *marker;
     char *str_part = freadline(readfile);
     long len = strtol(str_part, &marker, 10);
@@ -98,14 +97,29 @@ Subscriber *parse_file(char *path) {
         printf("File's length not found.\n");
         return NULL;
     }    
-    printf("len: %ld\n", len);
-    Subscriber *out = malloc(len * sizeof(Subscriber));
-    for (int i = 0; i < len; i++) {
+    Subscriber *out = (Subscriber *)malloc(len * sizeof(Subscriber));
+    int real_i = 0;
+    int i = 0;
+    for (; i < len; i++) {
         char *name = freadline(readfile);
         char *phone = freadline(readfile);
         char *timestamp = freadline(readfile);
         if (!check_name(name) || !check_phone(phone) || !check_timestamp(timestamp)) {
-            printf("Incorrect element No.%d, won't be included in the array\n", i);
+            printf("Incorrect element No.%d, won't be included in the array\n", i + 1);
+            continue;
         }
+        char *m;
+        int ts = strtol(timestamp, &m, 10);
+        Subscriber cur;
+        cur.name = name;
+        cur.phone = phone;
+        cur.timestamp = ts;
+        out[real_i] = cur;
+        real_i++;
     }
+    if (i != real_i) {
+        out = (Subscriber *)safe_realloc(out, (real_i + 1) * sizeof(Subscriber));
+    }
+    fclose(readfile);
+    return out;
 }
