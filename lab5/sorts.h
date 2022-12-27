@@ -1,11 +1,11 @@
 #ifndef SORTS_H
 #define SORTS_H
 
-int compare_names(Subscriber a, Subscriber b);
+int compare_names(const void *a, const void *b);
 
-int compare_phones(Subscriber a, Subscriber b);
+int compare_phones(const void *a, const void *b);
 
-int compare_timestamps(Subscriber a, Subscriber b);
+int compare_timestamps(const void *a, const void *b);
 
 int make_int(char *phone);
 

@@ -6,14 +6,14 @@
 
 // a > b => 1; a == b => 0; a < b => -1
 
-int compare_names(Subscriber a, Subscriber b) {
+int compare_names(const void *a, const void *b) {
     // Compares by names
-    return strcmp(a.name, b.name);
+    return strcmp(((Subscriber *)a)->name, ((Subscriber *)b)->name);
 }
 
-int compare_phones(Subscriber a, Subscriber b) {
-    int num1 = make_int(a.phone);
-    int num2 = make_int(b.phone);
+int compare_phones(const void *a, const void *b) {
+    int num1 = make_int(((Subscriber *)a)->phone);
+    int num2 = make_int(((Subscriber *)b)->phone);
     if (num1 > num2) {
         return 1;
     } else if (num1 == num2) {
@@ -23,9 +23,9 @@ int compare_phones(Subscriber a, Subscriber b) {
     }
 }
 
-int compare_timestamps(Subscriber a, Subscriber b) {
-    int num1 = a.timestamp;
-    int num2 = b.timestamp;
+int compare_timestamps(const void *a, const void *b) {
+    int num1 = ((Subscriber *)a)->timestamp;
+    int num2 = ((Subscriber *)a)->timestamp;
     if (num1 > num2) {
         return 1;
     } else if (num1 == num2) {
