@@ -3,6 +3,6 @@
 
 void *safe_malloc(int len);
 
-void *safe_realloc(char *str, int len);
+void *safe_realloc(void *str, int len);
 
 #endif

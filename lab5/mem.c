@@ -3,7 +3,7 @@
 #include "mem.h"
 
 void *safe_malloc(int len) {
-    char *str = (char*)malloc(len);
+    void *str = malloc(len);
     if (!str) {
         printf("Error occurred while allocating memory\n");
         return NULL;
@@ -11,8 +11,8 @@ void *safe_malloc(int len) {
     return str;
 }
 
-void *safe_realloc(char *str, int len) {
-    str = (char *)realloc(str, len);
+void *safe_realloc(void *str, int len) {
+    str = realloc(str, len);
     if (!str) {
         printf("Error occurred while allocating memory\n");
         return NULL;
