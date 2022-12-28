@@ -96,6 +96,7 @@ Subscriber *parse_file(char *path, int *size) {
     char *str_part = freadline(readfile);
 
     int len = strtol(str_part, &marker, 10); 
+    free(str_part);
     if (marker == str_part) { // bad str to long
         printf("File's length not found.\n");
         return NULL;
@@ -116,6 +117,7 @@ Subscriber *parse_file(char *path, int *size) {
         }
         char *m;
         int ts = strtol(timestamp, &m, 10);
+        free(timestamp);
         Subscriber cur;
         cur.name = name;
         cur.phone = phone;
@@ -140,4 +142,5 @@ void write_file(char *path, Subscriber *arr, int size) {
         fprintf(wfile, "%s\n", arr[i].phone);
         fprintf(wfile, "%d\n", arr[i].timestamp);
     }
+    fclose(wfile);
 }

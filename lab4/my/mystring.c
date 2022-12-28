@@ -82,7 +82,7 @@ char *strcat(char *restrict s1, const char *restrict s2) {
 int tolower(int c) {
     // 'A' - 65 in ASCII, 'Z' - 90
     // 'a' - 97 <=> lower = upper + 32
-    if (c >= 65 && c <= 90) {
+    if (c >= 'A' && c <= 'Z') {
         return c + 32;
     }
     return c;
