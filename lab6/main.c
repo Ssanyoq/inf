@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <struct.h> 
 #include "list.h"
 #include "io.h"
 
