@@ -1,9 +1,12 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
 #include "mystruct.h"
 #include "files.h"
 #include "sorts.h"
+
 
 // sort: q, o, s
 // args: <read file> <write file> -s <sorting type>\
@@ -109,7 +112,10 @@ int main(int argc, char *argv[]) {
 
     int len;
     Subscriber *arr = parse_file(read_file, &len);
+    clock_t start = clock();
     sort(arr, len, compar);
+    clock_t end = clock();
+    printf("%lf\n", (double)(end - start) / CLOCKS_PER_SEC);
     write_file(write_path, arr, len);
     free_arr(arr, len);
     return 0;
