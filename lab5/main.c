@@ -111,6 +111,6 @@ int main(int argc, char *argv[]) {
     Subscriber *arr = parse_file(read_file, &len);
     sort(arr, len, compar);
     write_file(write_path, arr, len);
-    free(arr);
+    free_arr(arr, len);
     return 0;
 }
