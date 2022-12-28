@@ -106,7 +106,7 @@ Subscriber *parse_file(char *path, int *size) {
     Subscriber *out = (Subscriber *)malloc(len * sizeof(Subscriber));
     int real_i = 0;
     int i = 0;
-    for (; i <= len + 1; i++) {
+    for (; i < len; i++) {
         char *name = freadline(readfile);
         char *phone = freadline(readfile);
         char *timestamp = freadline(readfile);
