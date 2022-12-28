@@ -94,15 +94,18 @@ Subscriber *parse_file(char *path, int *size) {
     FILE *readfile = fopen(path, "r");
     char *marker;
     char *str_part = freadline(readfile);
-    int len = strtol(str_part, &marker, 10);
-    if (marker == str_part) {
+
+    int len = strtol(str_part, &marker, 10); 
+    if (marker == str_part) { // bad str to long
         printf("File's length not found.\n");
         return NULL;
     }    
+
+    // printf("length before: %d\n", len);
     Subscriber *out = (Subscriber *)malloc(len * sizeof(Subscriber));
     int real_i = 0;
     int i = 0;
-    for (; i < len; i++) {
+    for (; i <= len + 1; i++) {
         char *name = freadline(readfile);
         char *phone = freadline(readfile);
         char *timestamp = freadline(readfile);
@@ -124,13 +127,14 @@ Subscriber *parse_file(char *path, int *size) {
         out = (Subscriber *)safe_realloc(out, (real_i + 1) * sizeof(Subscriber));
     }
     fclose(readfile);
+    // printf("length after: %d\n",len);
     *size = len;
     return out;
 }
 
 void write_file(char *path, Subscriber *arr, int size) {
-    printf("in writing\n");
-    FILE *wfile = fopen(path, 'w');
+    // printf("in writing\n");
+    FILE *wfile = fopen(path, "w");
     for (int i = 0; i < size; i++) {
         fprintf(wfile, "%s\n", arr[i].name);
         fprintf(wfile, "%s\n", arr[i].phone);

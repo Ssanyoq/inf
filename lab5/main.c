@@ -10,9 +10,10 @@
 // -r <1|0 - reversed or not> -f <field for sorting>
 int main(int argc, char *argv[]) {
     int c;
-    void (* sort)(Subscriber *, int, int(*)(const void *, const void *)); // 0 - qsort, 1 - odd even, 2 - Shell
+    void (* sort)(Subscriber *, int, int(*)(const void *, const void *)) = qsortpp; // 0 - qsort, 1 - odd even, 2 - Shell
     int reversed = 0;
     int (* compar)(const void *, const void *); // 0 - name, 1 - phone, 2 - timestamp
+    compar = compare_names;
     char arg;
     while ((c = getopt(argc, argv, "s:r:f")) != -1) {
         switch (c) {
@@ -94,12 +95,12 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Error: missing positional arguments\n");
         return 1;
     }
-    char *write_file = argv[optind];
-    if (!write_file) {
+    char *write_path = argv[optind];
+    if (!write_path) {
         fprintf(stderr, "Error: missing required argument\n");
         return 1;
     }
-    if (access(write_file, F_OK) == 0) {
+    if (access(write_path, F_OK) == 0) {
         // gut
     } else {
         fprintf(stderr, "Error: write file does not exist\n");
@@ -107,10 +108,9 @@ int main(int argc, char *argv[]) {
     }
 
     int len;
-    Subscriber *arr = parse_file(read_file, &len); 
-    printf("off parsing\n");
-
+    Subscriber *arr = parse_file(read_file, &len);
     sort(arr, len, compar);
-    printf("alrdy here\n");
-
+    write_file(write_path, arr, len);
+    free(arr);
+    return 0;
 }

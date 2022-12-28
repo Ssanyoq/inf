@@ -76,7 +76,7 @@ int make_int(char *phone) {
 }
 
 void qsortpp(Subscriber *arr, int size, int(*compar)(const void *, const void *)) { // pp for plus plus
-    qsort(arr, sizeof(Subscriber), size, compar);
+    qsort(arr, size, sizeof(Subscriber), compar);
 }
 
 void odd_even_sort(Subscriber *arr, int size, int(*compar)(const void *, const void *)) {
