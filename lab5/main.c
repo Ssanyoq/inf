@@ -115,7 +115,7 @@ int main(int argc, char *argv[]) {
     clock_t start = clock();
     sort(arr, len, compar);
     clock_t end = clock();
-    printf("%lf\n", (double)(end - start) / CLOCKS_PER_SEC);
+    printf("%lf", (double)(end - start) / CLOCKS_PER_SEC);
     write_file(write_path, arr, len);
     free_arr(arr, len);
     return 0;

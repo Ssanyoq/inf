@@ -19,37 +19,26 @@ def generate_read(n: int):
 start = int(input("from: "))
 end = int(input("to: "))
 step = int(input("with step: "))
-generate_read(10000)
-stream = os.popen("build/e reads/read1000.txt write.txt")
-print(float(stream.read()))
+# generate_read(100)
+# quit()
 qs = []
 ss = []
 odd = []
-for j in 'qso':
+for j in 's':
     time = [] # x
     amt = [] # y
     for i in range(start, end + 1, step):
         generate_read(i)
-        stream = os.popen("build/e reads/read" + str(i) + ".txt write.txt -s " + j)
+        stream = os.popen("build/e reads/read" + str(i) + ".txt write.txt -f 2 -s " + j)
         amt.append(i)
         time.append(int(float(stream.read()) * 1_000_000)) # microseconds
         os.system("rm reads/read" + str(i) + ".txt")
     if j == 'q':
         qs = [time, amt]
+        print(*time, sep='\n')
     elif j == 's':
         ss = [time, amt]
+        print(*time, sep='\n')
     else:
         odd = [time, amt]
-
-
-legend = ['quick', 'odd-even', 'Shell']
-PT_SIZE = 11
-
-
-plt.scatter(qs[1],qs[0], label='quick', s=PT_SIZE)
-plt.scatter(ss[1],ss[0], label='Shell', s=PT_SIZE)
-plt.scatter(odd[1],odd[0], label='odd-even', s=PT_SIZE)
-plt.legend(legend)
-plt.xlabel("Кол-во элементов, шт")
-plt.ylabel("Время работы, мкс")
-plt.show()
+        print(*time, sep='\n')
