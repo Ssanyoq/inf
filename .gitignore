@@ -5,7 +5,7 @@
 *.swp
 tmp/
 test/
-reads/
+lab5/reads/
 
 # for diagram storing purposes 
 graph/
