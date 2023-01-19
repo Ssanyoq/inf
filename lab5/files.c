@@ -37,8 +37,8 @@ int check_name(char *name) {
         return 0;
     }
     for (int i = 0; i < len; i++) {
-        if (!(name[i] <= 'Z' && name[i] >= 'A') && !(name[i] <= 'a' && name[i] >= 'z')) {
-            if (name[i] != ' ' || name[i] != '\t') { // if not in alphabet, then it should be either ' ' or '\t'
+        if (!(name[i] <= 'Z' && name[i] >= 'A') && !(name[i] >= 'a' && name[i] <= 'z')) {
+            if (name[i] != ' ' && name[i] != '\t') { // if not in alphabet, then it should be either ' ' or '\t'
                 return 0;
             }
         }
@@ -104,17 +104,18 @@ Subscriber *parse_file(char *path, int *size) {
         return NULL;
     }    
 
-    // printf("length before: %d\n", len);
+    // printf("length before: %d\n", len); // FOR DEBUG
     Subscriber *out = (Subscriber *)malloc(len * sizeof(Subscriber));
     int real_i = 0;
     int i = 0;
+    int new_len = len;
     for (; i < len; i++) {
         char *name = freadline(readfile);
         char *phone = freadline(readfile);
         char *timestamp = freadline(readfile);
         if (!check_name(name) || !check_phone(phone) || !check_timestamp(timestamp)) {
             printf("Incorrect element No.%d, won't be included in the array\n", i + 1);
-            len--;
+            new_len--;
             continue;
         }
         char *m;
@@ -128,9 +129,21 @@ Subscriber *parse_file(char *path, int *size) {
         real_i++;
     }
     if (i != real_i) {
-        out = (Subscriber *)safe_realloc(out, (real_i + 1) * sizeof(Subscriber));
+        out = (Subscriber *)safe_realloc(out, (new_len) * sizeof(Subscriber));
     }
     fclose(readfile);
-    *size = len;
+    // printf("len after: %d, i: %d, real i:%d, new_len: %d \n", len, i, real_i, new_len); // FOR DEBUG
+    *size = new_len;
     return out;
+}
+
+void write_file(char *path, Subscriber *arr, int size) {
+    // printf("in writing\n");
+    FILE *wfile = fopen(path, "w");
+    for (int i = 0; i < size; i++) {
+        fprintf(wfile, "%s\n", arr[i].name);
+        fprintf(wfile, "%s\n", arr[i].phone);
+        fprintf(wfile, "%d\n", arr[i].timestamp);
+    }
+    fclose(wfile);
 }
