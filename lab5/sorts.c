@@ -54,7 +54,7 @@ void odd_even_sort(void *base, size_t nel, size_t width, int (*compar)(const voi
 
         // odd index
         for (int i = 1; i <= nel - 2; i = i + 2) {
-            if (arr[i] > arr[i + 1]) {
+            if (compar((void *)(&(arr[i])), (void *)(&(arr[i + 1]))) == 1) {
                 buf = arr[i];
                 arr[i] = arr[i + 1];
                 arr[i + 1] = buf;
@@ -64,7 +64,7 @@ void odd_even_sort(void *base, size_t nel, size_t width, int (*compar)(const voi
  
         // even index
         for (int i = 0; i <= nel - 2; i = i + 2) {
-            if (arr[i] > arr[i + 1]) {
+            if (compar((void *)(&(arr[i])), (void *)(&(arr[i + 1]))) == 1) {
                 buf = arr[i];
                 arr[i] = arr[i + 1];
                 arr[i + 1] = buf;
@@ -72,6 +72,4 @@ void odd_even_sort(void *base, size_t nel, size_t width, int (*compar)(const voi
             }
         }
     }
-    }
-    
 }
