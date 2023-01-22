@@ -1,6 +1,8 @@
 #ifndef SORTS_H
 #define SORTS_H
 
+#include <stddef.h> // for size_t
+
 int compare_names(const void *a, const void *b);
 
 int rev_names(const void *a, const void *b);
