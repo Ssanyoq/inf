@@ -151,6 +151,9 @@ int main(int argc, char **argv) {
 
     int len;
     Subscriber *arr = parse_file(read_path, &len);
+    if (arr == NULL) {
+        return 1;
+    }
     sort((void *)arr, len, sizeof(Subscriber), compar);
     write_file(write_path, arr, len);
     free_arr(arr, len);
