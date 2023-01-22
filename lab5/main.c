@@ -2,6 +2,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include "mystruct.h"
+#include "files.h"
+#include "sorts.h"
+
 #define ERROR_CODE 1
 
 void err_bad_input() {
@@ -25,13 +29,13 @@ int main(int argc, char **argv) {
             switch (optarg[0])
             {
             case 'q':
-                // TODO:
+                sort = qsort;
                 break;
             case 'o':
-                //TODO:
+                sort = odd_even_sort;
                 break;
             case 's':
-                // TODO:
+                sort = shell_sort;
                 break;
             default:
                 err_bad_input();
@@ -84,12 +88,12 @@ int main(int argc, char **argv) {
         return ERROR_CODE;
     }
     
-    char *read_file = argv[optind];
-    if (!read_file) {
+    char *read_path = argv[optind];
+    if (!read_path) {
         err_bad_input();
         return ERROR_CODE;
     }
-    if (access(read_file, F_OK) == 0) {
+    if (access(read_path, F_OK) == 0) {
         // gut
     } else {
         fprintf(stderr, "Error: read file does not exist\n");
@@ -112,7 +116,11 @@ int main(int argc, char **argv) {
         return ERROR_CODE;
     }
 
-
-
+    int len;
+    Subscriber *arr = parse_file(read_path, &len);
+    sort(arr, len, sizeof(Subscriber), compar);
+    printf("ayy off sorts\n");
+    write_file(write_path, arr, len);
+    free_arr(arr, len);
     return 0;
 }
