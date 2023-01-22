@@ -19,9 +19,39 @@ Subscriber *generate_subs(int amt) {
     }
     return arr;
 }
-int main() {
-    Subscriber *arr = generate_subs(100);
-    printf("0: %d\n1: %d\n", (arr[0]).timestamp, (arr[1]).timestamp);
-    printf("%d", RAND_MAX);
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        fprintf(stderr, "Not enough parameters\n");
+        return 1;
+    }
+    char *marker;
+    int amt = strtol(argv[1], &marker, 10); 
+    if (marker == argv[1]) { // bad str to long
+        fprintf(stderr, "Bad 1st parameter\n");
+        return 1;
+    }
+    char sort_type = argv[2][0];
+    void (*sort)(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
+    switch (sort_type)
+    {
+    case 'q':
+        sort = qsort;
+        break;
+    case 's':
+        sort = shell_sort;
+        break;
+    case 'o':
+        sort = odd_even_sort;
+        break;
+    default:
+        fprintf(stderr, "This type of sorting does not exist\n");
+        return 1;
+        break;
+    }
+    Subscriber *arr = generate_subs(amt);
+    time_t start = RUSAGE_INFO_CURRENT
+    // printf("%d", RAND_MAX);
+
+
     return 0;
 }
