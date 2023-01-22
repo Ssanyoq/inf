@@ -15,6 +15,6 @@ int rev_timestamps(const void *a, const void *b);
 
 void odd_even_sort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
 
-void shell_sort(Subscriber *arr, int size, int(*compar)(const void *, const void *));
+void shell_sort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
 
 #endif

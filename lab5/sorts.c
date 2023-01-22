@@ -54,7 +54,7 @@ void odd_even_sort(void *base, size_t nel, size_t width, int (*compar)(const voi
 
         // odd index
         for (int i = 1; i <= nel - 2; i = i + 2) {
-            if (compar((void *)(&(arr[i])), (void *)(&(arr[i + 1]))) == 1) {
+            if (compar((void *)(&(arr[i])), (void *)(&(arr[i + 1]))) == 1) { // a > b
                 buf = arr[i];
                 arr[i] = arr[i + 1];
                 arr[i + 1] = buf;
@@ -64,11 +64,27 @@ void odd_even_sort(void *base, size_t nel, size_t width, int (*compar)(const voi
  
         // even index
         for (int i = 0; i <= nel - 2; i = i + 2) {
-            if (compar((void *)(&(arr[i])), (void *)(&(arr[i + 1]))) == 1) {
+            if (compar((void *)(&(arr[i])), (void *)(&(arr[i + 1]))) == 1) { // a > b
                 buf = arr[i];
                 arr[i] = arr[i + 1];
                 arr[i + 1] = buf;
                 is_sorted = 0;
+            }
+        } 
+    }
+}
+
+void shell_sort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *)) {
+    Subscriber *arr = (Subscriber *)base;
+    int interval = nel / 2;
+    for (; interval > 0; interval = interval / 2) {
+        for (int i = interval; i < nel; i++) {
+            Subscriber cmp = arr[i];
+            for (int j = i; j >= interval; j -= interval) {
+                if (compar((void *)(&(arr[j - interval])), (void *)(&(cmp))) == 1) { // >
+                    arr[j] = arr[j - interval];
+                }
+                arr[j] = cmp;
             }
         }
     }
