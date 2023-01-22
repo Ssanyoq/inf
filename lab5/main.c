@@ -116,10 +116,42 @@ int main(int argc, char **argv) {
         return ERROR_CODE;
     }
 
+    // comparators
+
+    switch (field)
+    {
+    case 1:
+        if (reversed) {
+            compar = compare_names;
+        } else {
+            compar = rev_names;
+        }
+        break;
+    case 2:
+        if (reversed) {
+            compar = compare_phones;
+        } else {
+            compar = rev_phones;
+        }
+        break;
+    case 3:
+        if (reversed) {
+            compar = compare_timestamps;
+        } else {
+            compar = rev_timestamps;
+        }
+        break;
+    default:
+        printf("Impossible\n");
+        exit(1);
+        break;
+    }
+
+    //end of comparators
+
     int len;
     Subscriber *arr = parse_file(read_path, &len);
-    sort(arr, len, sizeof(Subscriber), compar);
-    printf("ayy off sorts\n");
+    sort((void *)arr, len, sizeof(Subscriber), compar);
     write_file(write_path, arr, len);
     free_arr(arr, len);
     return 0;
