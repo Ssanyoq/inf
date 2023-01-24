@@ -161,31 +161,32 @@ int main(int argc, char **argv) {
     // comparators
     switch (field)
     {
-    case 1:
-        if (reversed) {
-            compar = compare_names;
-        } else {
-            compar = rev_names;
-        }
-        break;
-    case 2:
-        if (reversed) {
-            compar = compare_phones;
-        } else {
-            compar = rev_phones;
-        }
-        break;
-    case 3:
-        if (reversed) {
-            compar = compare_timestamps;
-        } else {
-            compar = rev_timestamps;
-        }
-        break;
-    default:
-        printf("Impossible\n");
-        exit(1);
-        break;
+        case 1:
+            if (!reversed) {
+                compar = compare_names;
+            } else {
+                compar = rev_names;
+            }
+            break;
+        case 2:
+            if (!reversed) {
+                compar = compare_phones;
+            } else {
+                printf("j\n");
+                compar = rev_phones;
+            }
+            break;
+        case 3:
+            if (!reversed) {
+                compar = compare_timestamps;
+            } else {
+                compar = rev_timestamps;
+            }
+            break;
+        default:
+            printf("Impossible\n");
+            exit(1);
+            break;
     }
 
     // len
