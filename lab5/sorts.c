@@ -27,7 +27,7 @@ int rev_phones(const void *a, const void *b) {
 
 int compare_timestamps(const void *a, const void *b) {
     int num1 = ((Subscriber *)a)->timestamp;
-    int num2 = ((Subscriber *)a)->timestamp;
+    int num2 = ((Subscriber *)b)->timestamp;
     if (num1 > num2) {
         return 1;
     } else if (num1 == num2) {
