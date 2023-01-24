@@ -14,14 +14,36 @@ void err_bad_input() {
     fprintf(stderr, "Wrong parameters given\n");
 }
 
+char *rand_name(int size) {
+    // generates a string with symbols from 'a' to 'z'
+    char *str = (char *)safe_malloc(size * sizeof(char));
+    for (int i = 0; i < size; i++) {
+        // rand int from 97 to 122
+        char symb = (char)(97 + rand() % 26);
+        str[i] = symb;
+    }
+    return str;
+}
+
+char *rand_phone(int size) {
+    // generates a string with symbols from '0' to '9'
+    char *str = (char *)safe_malloc(size * sizeof(char));
+    for (int i = 0; i < size; i++) {
+        // rand int from 48 to 57
+        char symb = (char)(48 + rand() % 10);
+        str[i] = symb;
+    }
+    return str;
+}
+
 Subscriber *generate_subs(int amt) {
     // sub: {name: '', phone: '', timestamp: random int [0, 1.000.000] (or < 1000000, depends on RAND_MAX)
     Subscriber *arr;
     arr = (Subscriber *)safe_malloc(amt * sizeof(Subscriber));
     for (int i = 0; i < amt; i++) {
         Subscriber cur;
-        cur.name = "";
-        cur.phone = "";
+        cur.name = rand_name(50);
+        cur.phone = rand_phone(16);
         cur.timestamp = rand() % 1000001;
         arr[i] = cur;
     }
@@ -94,6 +116,7 @@ int main(int argc, char **argv) {
         }
     } // optargs end
 
+
     if (optind >= argc) {
         err_bad_input();
         return ERROR_CODE;
@@ -113,7 +136,6 @@ int main(int argc, char **argv) {
         printf("Bad number\n");
         return ERROR_CODE;
     }
-    free(str_part);
 
 
     optind++;
@@ -134,9 +156,9 @@ int main(int argc, char **argv) {
         printf("Bad number\n");
         return ERROR_CODE;
     }
-    free(str_part);
-    // comparators
 
+
+    // comparators
     switch (field)
     {
     case 1:
@@ -165,7 +187,10 @@ int main(int argc, char **argv) {
         exit(1);
         break;
     }
-    printf("size: %d, amt: %d\n", len, arr_amt);
+
+    // char *a = rand_phone(100);
+    // printf("%s\n", a);
+    // printf("size: %d, amt: %d\n", len, arr_amt);
     // Subscriber *arr = generate_subs(amt);
     // time_t start = clock();
     // sort(arr, amt, sizeof(Subscriber), compare_timestamps);
