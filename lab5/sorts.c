@@ -75,17 +75,18 @@ void odd_even_sort(void *base, size_t nel, size_t width, int (*compar)(const voi
 }
 
 void shell_sort(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *)) {
-    Subscriber *arr = (Subscriber *)base;
+    Subscriber *arr;
+    arr = (Subscriber *)base;
     int interval = nel / 2;
-    for (; interval > 0; interval = interval / 2) {
+    Subscriber compar_buff;
+    for (; interval > 0; interval /= 2) {
         for (int i = interval; i < nel; i++) {
-            Subscriber cmp = arr[i];
-            for (int j = i; j >= interval; j -= interval) {
-                if (compar((void *)(&(arr[j - interval])), (void *)(&(cmp))) == 1) { // >
+            compar_buff = arr[i];
+            int j = i;
+            for (; j >= interval && (compar((void *)(&(arr[j - interval])), (void *)(&(compar_buff))) == 1); j -= interval) {
                     arr[j] = arr[j - interval];
                 }
-                arr[j] = cmp;
-            }
+            arr[j] = compar_buff;   
         }
     }
 }
