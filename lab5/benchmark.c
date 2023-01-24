@@ -172,7 +172,6 @@ int main(int argc, char **argv) {
             if (!reversed) {
                 compar = compare_phones;
             } else {
-                printf("j\n");
                 compar = rev_phones;
             }
             break;
