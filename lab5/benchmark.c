@@ -188,15 +188,25 @@ int main(int argc, char **argv) {
         break;
     }
 
-    // char *a = rand_phone(100);
-    // printf("%s\n", a);
-    // printf("size: %d, amt: %d\n", len, arr_amt);
-    // Subscriber *arr = generate_subs(amt);
-    // time_t start = clock();
-    // sort(arr, amt, sizeof(Subscriber), compare_timestamps);
-    // time_t end = clock();
-    // printf("%f\n", (double)(end - start) / CLOCKS_PER_SEC);
-    // free_arr(arr, amt - 1);
+    // len
+    // arr_amt
+    double mean = -1;
+    for (int i = 0; i < arr_amt; i++) {
+        Subscriber *arr = generate_subs(len);
+        time_t start = clock();
+        sort(arr, len, sizeof(Subscriber), compar);
+        time_t end = clock();
+        double delta = (double)(end - start) / CLOCKS_PER_SEC;
+        // printf("%f ", delta);
+        free_arr(arr, len);
+        if (mean == -1) {
+            mean = delta;
+        } else {
+            mean = (mean + delta) / 2;
+        }
+    }
+    printf("\n");
+    printf("%f\n", mean);
 
     return 0;
 }

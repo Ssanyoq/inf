@@ -98,11 +98,15 @@ Subscriber *parse_file(char *path, int *size) {
     char *str_part = freadline(readfile);
 
     int len = strtol(str_part, &marker, 10); 
-    free(str_part);
+    
     if (marker == str_part) { // bad str to long
         printf("File's length not found.\n");
         return NULL;
-    }    
+    } else if (len <= 0) {
+        printf("Bad number\n");
+        return NULL;
+    }
+    free(str_part);
 
     // printf("length before: %d\n", len); // FOR DEBUG
     Subscriber *out = (Subscriber *)malloc(len * sizeof(Subscriber));
