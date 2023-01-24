@@ -5,6 +5,7 @@
 #include "mem.h"
 #include "sorts.h"
 #include "mystruct.h"
+#include "files.h"
 
 Subscriber *generate_subs(int amt) {
     // sub: {name: '', phone: '', timestamp: random int [0, 1.000.000] (or < 1000000, depends on RAND_MAX)
@@ -49,9 +50,11 @@ int main(int argc, char **argv) {
         break;
     }
     Subscriber *arr = generate_subs(amt);
-    time_t start = RUSAGE_INFO_CURRENT
-    // printf("%d", RAND_MAX);
-
+    time_t start = clock();
+    sort(arr, amt, sizeof(Subscriber), compare_timestamps);
+    time_t end = clock();
+    printf("%f\n", (double)(end - start) / CLOCKS_PER_SEC);
+    free_arr(arr, amt);
 
     return 0;
 }
