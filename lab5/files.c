@@ -119,11 +119,29 @@ Subscriber *parse_file(char *path, int *size) {
         char *timestamp = freadline(readfile);
         if (!check_name(name) || !check_phone(phone) || !check_timestamp(timestamp)) {
             printf("Incorrect element No.%d, won't be included in the array\n", i + 1);
+            free(phone);
+            free(name);
+            free(timestamp);
             new_len--;
             continue;
         }
         char *m;
         int ts = strtol(timestamp, &m, 10);
+        if (m == timestamp) { // bad str to long
+            printf("Incorrect element No.%d, won't be included in the array\n", i + 1);
+            new_len--;
+            free(phone);
+            free(name);
+            free(timestamp);
+            continue;
+        } else if (ts <= 0) {
+            printf("Incorrect element No.%d, won't be included in the array\n", i + 1);
+            new_len--;
+            free(phone);
+            free(name);
+            free(timestamp);
+            continue;
+        }
         free(timestamp);
         Subscriber cur;
         cur.name = name;
