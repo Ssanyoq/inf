@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     int (*compar)(const void *, const void *);
     int c;
     int field = 1; // 1 - name, 2 - phone, 3 - timestamp
-    while ((c = getopt(argc, argv, "s:r:f")) != -1) {
+    while ((c = getopt(argc, argv, "s:r:f:")) != -1) {
         switch (c)
         {
         case 's': // sorting type
@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
     }
 
     // comparators
-
+    printf("here\n");
     switch (field)
     {
     case 1:
