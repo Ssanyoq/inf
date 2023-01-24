@@ -30,6 +30,9 @@ int main(int argc, char **argv) {
     if (marker == argv[1]) { // bad str to long
         fprintf(stderr, "Bad 1st parameter\n");
         return 1;
+    } else if {amt <= 0} {
+        fprintf(stderr, "Bad 1st parameter\n");
+        return 1;
     }
     char sort_type = argv[2][0];
     void (*sort)(void *base, size_t nel, size_t width, int (*compar)(const void *, const void *));
@@ -49,12 +52,13 @@ int main(int argc, char **argv) {
         return 1;
         break;
     }
+    printf("%d\n", amt);
     Subscriber *arr = generate_subs(amt);
     time_t start = clock();
     sort(arr, amt, sizeof(Subscriber), compare_timestamps);
     time_t end = clock();
     printf("%f\n", (double)(end - start) / CLOCKS_PER_SEC);
-    free_arr(arr, amt);
+    free_arr(arr, amt - 1);
 
     return 0;
 }

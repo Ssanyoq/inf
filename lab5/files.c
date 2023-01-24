@@ -150,8 +150,12 @@ void write_file(char *path, Subscriber *arr, int size) {
 
 void free_arr(Subscriber *arr, int len) {
     for (int i = 0; i < len; i++) {
-        free(arr[i].name);
-        free(arr[i].phone);
+        if (arr[i].name != NULL) {
+            free(arr[i].name);
+        }
+        if (arr[i].phone != NULL) {
+            free(arr[i].phone);
+        }
     }
     free(arr);
 }
